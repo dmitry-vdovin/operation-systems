@@ -1,21 +1,18 @@
-﻿# CMakeList.txt: проект CMake для lab_2_processes; включите исходный код и определения,
-# укажите здесь логику для конкретного проекта.
-#
+﻿cmake_minimum_required(VERSION 3.20)
+project(lab_2_processes LANGUAGES CXX)
 
-# Добавьте источник в исполняемый файл этого проекта.
-add_executable (lab_2_processes "lab_2_processes.cpp" "lab_2_processes.h" "src/array_ops.cpp" "tests/test_array_ops.cpp")
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-if (CMAKE_VERSION VERSION_GREATER 3.12)
-  set_property(TARGET lab_2_processes PROPERTY CXX_STANDARD 20)
-endif()
+# Общие дефайны для WinAPI
+add_compile_definitions(NOMINMAX WIN32_LEAN_AND_MEAN UNICODE _UNICODE)
 
-# TODO: Добавьте тесты и целевые объекты, если это необходимо.
-
-
-add_subdirectory(lab_2_processes)
-
+# Библиотека с логикой (максимум массива) — пригодится в коммите 3, но можно собрать уже сейчас
 add_library(core STATIC
   src/array_ops.cpp
 )
+target_include_directories(core PUBLIC ${CMAKE_SOURCE_DIR}/include)
 
-target_include_directories(core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+enable_testing()
+add_subdirectory(apps)
+add_subdirectory(tests)

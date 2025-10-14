@@ -1,8 +1,10 @@
-﻿// lab_2_processes.h : включаемый файл для стандартных системных включаемых файлов
-// или включаемые файлы для конкретного проекта.
+﻿#pragma once
+#include <windows.h>
+#include <string>
 
-#pragma once
+void fail(const char* where);
+bool write_all(HANDLE h, const void* buf, DWORD bytes);
+bool read_exact(HANDLE h, void* buf, DWORD bytes);
 
-#include <iostream>
-
-// TODO: установите здесь ссылки на дополнительные заголовки, требующиеся для программы.
+int child_main();   // режим потомка (stdin→stdout эхо)
+int parent_main();  // режим родителя (создание каналов, запуск child, ping→pong)
