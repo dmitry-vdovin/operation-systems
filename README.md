@@ -1,1 +1,1 @@
-# kolok_1
+#my tasks for operation system programming course
