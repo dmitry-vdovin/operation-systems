@@ -54,8 +54,36 @@ bool is_palindrome_digits(std::string_review d) {
 	return true;
 }
 
+
+enum class CheckErr { Ok, InvalidInput };
+struct CheckResult {
+    bool is_palindrome{};
+    CheckErr err{ CheckErr::Ok };
+};
+
+CheckResult check_number_palindrome(std::string_view user_input) {
+    auto parsed = parse_number_string(user_input);
+    if (!parsed) return { false, CheckErr::InvalidInput };
+    return { is_palindrome_digits(*parsed), CheckErr::Ok };
+}
+
+
 int main() {
+    io::set_utf8_console();
 
-	// ***
+    std::cout << "Введите целое число: ";
+    std::string line;
+    if (!std::getline(std::cin, line)) {
+        std::cerr << "Ошибка чтения.\n";
+        return 1;
+    }
 
+    const auto res = check_number_palindrome(line);
+    if (res.err == CheckErr::InvalidInput) {
+        std::cout << "Некорректный ввод: ожидаются только цифры (знак, по желанию).\n";
+        return 2;
+    }
+
+    std::cout << (res.is_palindrome ? "Палиндром\n" : "Не палиндром\n");
+    return 0;
 }
