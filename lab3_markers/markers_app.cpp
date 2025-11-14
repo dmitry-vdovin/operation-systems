@@ -14,7 +14,8 @@ static void print_array(const Shared& S, const char* title) {
 }
 
 int main() {
-    // корректный вывод UTF-8 в консоль Windows
+   
+    setlocale(LC_ALL, "rus");
     SetConsoleOutputCP(CP_UTF8);
     SetConsoleCP(CP_UTF8);
 
