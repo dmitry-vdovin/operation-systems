@@ -6,16 +6,14 @@ enum TaskType {
     TASK_EXIT = 99
 };
 
-// Структура задачи
 struct Task {
     TaskType type;
     int size;
-    int data[256];  // ограничение для примера
+    int data[256];
 };
 
-// Структура результата
 struct Result {
-    int code;
+    int code;       // 0 = OK
     int size;
     int data[256];
 };
